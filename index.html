@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Team Playoff Bracket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .bracket {
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex-grow: 1;
+            min-width: 220px;
+        }
+        .matchup {
+            position: relative;
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .matchup-content {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+        .team {
+            padding: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            background-color: #fff;
+            transition: background-color 0.2s ease;
+        }
+        .team:last-child {
+            border-bottom: none;
+        }
+        .team-name {
+            font-size: 0.875rem;
+            color: #1f2937;
+        }
+        .team-seed {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #4b5563;
+            background-color: #f3f4f6;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+        }
+        .bye {
+            background-color: #f9fafb;
+            color: #6b7280;
+            font-style: italic;
+        }
+        .connector {
+            display: flex;
+            align-items: center;
+            width: 2.5rem; /* 40px */
+        }
+        .connector .line {
+            height: 1px;
+            width: 100%;
+            background-color: #cbd5e1;
+        }
+        .connector .path {
+            height: 50%;
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-left: none;
+        }
+        .connector.top .path {
+            border-top: none;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .connector.bottom .path {
+            border-bottom: none;
+            border-top-right-radius: 0.5rem;
+        }
+        .connector.straight {
+             height: 1px;
+             width: 2.5rem;
+             background-color: #cbd5e1;
+             align-self: center;
+        }
+        .round-title {
+            text-align: center;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Adjustments for better visual flow */
+        .round:first-child .matchup {
+             margin: 2rem 0;
+        }
+        .round:not(:first-child) .matchup {
+             min-height: 120px; /* Ensure space for connectors */
+        }
+        .final .matchup {
+            justify-content: center;
+            min-height: 0;
+        }
+
+        /* For mobile responsiveness */
+        @media (max-width: 768px) {
+            .bracket {
+                padding: 1rem 0.5rem;
+            }
+            .round {
+                min-width: 180px;
+            }
+            .team-name {
+                font-size: 0.8rem;
+            }
+            .connector {
+                width: 1.5rem; /* 24px */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4 sm:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">2025 West Coast Conference Finals</h1>
+            <p class="text-lg text-gray-600 mt-2">12-Team Playoff Bracket</p>
+        </header>
+
+        <div class="bracket">
+
+            <!-- Round 1 -->
+            <div class="round-container flex flex-col items-center">
+                <div class="round-title">First Round</div>
+                <div class="round">
+                    <div class="matchup">
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">Eastlake Panthers</span>
+                                <span class="team-seed">8</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name">Poway Raiders</span>
+                                <span class="team-seed">9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">San Diego Aztecs Red</span>
+                                <span class="team-seed">5</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name">El Cajon Falcons</span>
+                                <span class="team-seed">12</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matchup">
+                         <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">La Costa Canyon Mavericks</span>
+                                <span class="team-seed">7</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name">Temecula Kodiaks</span>
+                                <span class="team-seed">10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">Rancho Hills Titans</span>
+                                <span class="team-seed">6</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name">Carlsbad Iron Lancers</span>
+                                <span class="team-seed">11</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quarterfinals -->
+            <div class="round-container flex flex-col items-center">
+                <div class="round-title">Quarterfinals</div>
+                <div class="round">
+                    <div class="matchup">
+                        <div class="connector top"><div class="path"></div></div>
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">Point Loma Pointers</span>
+                                <span class="team-seed">1</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner 8/9</span>
+                                <span class="team-seed"></span>
+                            </div>
+                        </div>
+                        <div class="connector bottom"><div class="path"></div></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="connector top"><div class="path"></div></div>
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">Escondido Valley Wolves</span>
+                                <span class="team-seed">4</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner 5/12</span>
+                                <span class="team-seed"></span>
+                            </div>
+                        </div>
+                        <div class="connector bottom"><div class="path"></div></div>
+                    </div>
+                     <div class="matchup">
+                        <div class="connector top"><div class="path"></div></div>
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">Fallbrook Warriors</span>
+                                <span class="team-seed">2</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner 7/10</span>
+                                <span class="team-seed"></span>
+                            </div>
+                        </div>
+                        <div class="connector bottom"><div class="path"></div></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="connector top"><div class="path"></div></div>
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name">Oceanside Mighty Pirates</span>
+                                <span class="team-seed">3</span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner 6/11</span>
+                                <span class="team-seed"></span>
+                            </div>
+                        </div>
+                        <div class="connector bottom"><div class="path"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Semifinals -->
+            <div class="round-container flex flex-col items-center">
+                <div class="round-title">Semifinals</div>
+                <div class="round">
+                    <div class="matchup">
+                        <div class="connector top"><div class="path"></div></div>
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner QF1</span>
+                                <span class="team-seed"></span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner QF2</span>
+                                <span class="team-seed"></span>
+                            </div>
+                        </div>
+                        <div class="connector bottom"><div class="path"></div></div>
+                    </div>
+                     <div class="matchup">
+                        <div class="connector top"><div class="path"></div></div>
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner QF3</span>
+                                <span class="team-seed"></span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner QF4</span>
+                                <span class="team-seed"></span>
+                            </div>
+                        </div>
+                        <div class="connector bottom"><div class="path"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Championship -->
+            <div class="round-container flex flex-col items-center final">
+                <div class="round-title">Championship</div>
+                <div class="round">
+                    <div class="matchup">
+                        <div class="connector top"><div class="path"></div></div>
+                        <div class="matchup-content">
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner SF1</span>
+                                <span class="team-seed"></span>
+                            </div>
+                            <div class="team">
+                                <span class="team-name text-gray-500">Winner SF2</span>
+                                <span class="team-seed"></span>
+                            </div>
+                        </div>
+                        <div class="connector bottom"><div class="path"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- Champion -->
+             <div class="round-container flex flex-col justify-center items-center">
+                 <div class="round-title opacity-0">Winner</div> <!-- Hidden title for spacing -->
+                 <div class="round">
+                     <div class="matchup">
+                        <div class="connector straight"></div>
+                         <div class="matchup-content bg-yellow-300 border-yellow-400">
+                             <div class="team p-4 items-center justify-center bg-yellow-300">
+                                 <span class="team-name text-yellow-800 font-bold text-lg">🏆 CHAMPION</span>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
